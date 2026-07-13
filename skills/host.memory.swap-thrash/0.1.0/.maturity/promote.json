@@ -1,0 +1,23 @@
+{
+  "skill": "host.memory.swap-thrash",
+  "action": "promote",
+  "from": "sim_verified",
+  "to": "sim_verified",
+  "at": "2026-07-10T01:45:08",
+  "validator": "0 ERROR",
+  "evidence": "real_roundtrip",
+  "scenarios": [
+    {
+      "scenario": "real-swap-thrash.yaml",
+      "mode": "real",
+      "completed": true,
+      "terminal": "not_thrashing"
+    },
+    {
+      "scenario": "swap-thrash.yaml",
+      "mode": "context_walk",
+      "path_ok": true,
+      "rollback_ok": null
+    }
+  ]
+}
