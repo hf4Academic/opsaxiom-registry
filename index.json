@@ -1,60 +1,5 @@
 [
   {
-    "id": "aicomp.gpu.ecc-error",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "aicomp/gpu/ecc-error",
-    "domain": "aicomp",
-    "name": "GPU ECC 错误排查",
-    "summary": "SBE(单比特)可纠正、偶发无害；DBE(双比特)不可纠正、会导致计算错误或任务崩溃——两者严重性天差地别，别混为一谈",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "aicomp.gpu.fell-off-bus",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "aicomp/gpu/fell-off-bus",
-    "domain": "aicomp",
-    "name": "GPU 掉卡（fell off the bus）排查",
-    "summary": "掉卡的表现：nvidia-smi 看不到某张卡，或整个 nvidia-smi 报错(Unable to determine device)。dmesg 里 'f",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "aicomp.training.gpu-util-low",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "aicomp/training/gpu-util-low",
-    "domain": "aicomp",
-    "name": "GPU 利用率低（算力浪费）排查",
-    "summary": "GPU 利用率低=算力(和钱)在浪费。锯齿波形(util 忽高忽低)几乎必是数据供给跟不上——GPU 算完一批在等下一批",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "aicomp.fabric.ib-link-down",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "aicomp/fabric/ib-link-down",
-    "domain": "aicomp",
-    "name": "InfiniBand 链路 down 排查",
-    "summary": "IB 链路问题直接拖垮多机训练(NCCL 走 IB)。先分清是 down(完全断)、降速(协商到低速率)还是有误码(symbol errors 增长)——处置不",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "aicomp.training.job-hang",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "aicomp/training/job-hang",
-    "domain": "aicomp",
-    "name": "训练任务 hang（无进展）排查",
-    "summary": "训练 hang 先看 GPU util：持续 100% 无进展→多为集合通信卡死(转 nccl-hang)；持续 0→卡在非 GPU 环节(数据加载/check",
-    "attestations": 0,
-    "signers": []
-  },
-  {
     "id": "aicomp.collective.nccl-allreduce-slow",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -77,13 +22,35 @@
     "signers": []
   },
   {
-    "id": "aicomp.training.slow-node",
+    "id": "aicomp.fabric.ib-link-down",
     "version": "0.1.0",
     "maturity": "sim_verified",
-    "taxonomy": "aicomp/training/slow-node",
+    "taxonomy": "aicomp/fabric/ib-link-down",
     "domain": "aicomp",
-    "name": "慢节点定位（木桶效应）",
-    "summary": "同步训练里所有节点每 step 都要等最慢的那个(木桶效应)——一个慢节点拖垮整个集群吞吐。找到那个离群节点是关键",
+    "name": "InfiniBand 链路 down 排查",
+    "summary": "IB 链路问题直接拖垮多机训练(NCCL 走 IB)。先分清是 down(完全断)、降速(协商到低速率)还是有误码(symbol errors 增长)——处置不",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "aicomp.gpu.ecc-error",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "aicomp/gpu/ecc-error",
+    "domain": "aicomp",
+    "name": "GPU ECC 错误排查",
+    "summary": "SBE(单比特)可纠正、偶发无害；DBE(双比特)不可纠正、会导致计算错误或任务崩溃——两者严重性天差地别，别混为一谈",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "aicomp.gpu.fell-off-bus",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "aicomp/gpu/fell-off-bus",
+    "domain": "aicomp",
+    "name": "GPU 掉卡（fell off the bus）排查",
+    "summary": "掉卡的表现：nvidia-smi 看不到某张卡，或整个 nvidia-smi 报错(Unable to determine device)。dmesg 里 'f",
     "attestations": 0,
     "signers": []
   },
@@ -110,79 +77,35 @@
     "signers": []
   },
   {
-    "id": "host.provision.agent-deploy",
+    "id": "aicomp.training.gpu-util-low",
     "version": "0.1.0",
     "maturity": "sim_verified",
-    "taxonomy": "host/provision/agent-deploy",
-    "domain": "host",
-    "name": "监控探针批量部署（node_exporter 示例）",
-    "summary": "批量部署第一原则是幂等：已装的跳过、端口占用的报错、干净的才装。不做幂等检查的批量下发会在'部分已装'的环境里翻车",
+    "taxonomy": "aicomp/training/gpu-util-low",
+    "domain": "aicomp",
+    "name": "GPU 利用率低（算力浪费）排查",
+    "summary": "GPU 利用率低=算力(和钱)在浪费。锯齿波形(util 忽高忽低)几乎必是数据供给跟不上——GPU 算完一批在等下一批",
     "attestations": 0,
     "signers": []
   },
   {
-    "id": "host.network-stack.conntrack-full",
+    "id": "aicomp.training.job-hang",
     "version": "0.1.0",
     "maturity": "sim_verified",
-    "taxonomy": "host/network-stack/conntrack-full",
-    "domain": "host",
-    "name": "conntrack 表满排查",
-    "summary": "表满的症状是新连接被丢弃、dmesg 报 'nf_conntrack: table full, dropping packet'，但业务表现是随机连接失败——容",
+    "taxonomy": "aicomp/training/job-hang",
+    "domain": "aicomp",
+    "name": "训练任务 hang（无进展）排查",
+    "summary": "训练 hang 先看 GPU util：持续 100% 无进展→多为集合通信卡死(转 nccl-hang)；持续 0→卡在非 GPU 环节(数据加载/check",
     "attestations": 0,
     "signers": []
   },
   {
-    "id": "host.cpu.steal-high",
+    "id": "aicomp.training.slow-node",
     "version": "0.1.0",
     "maturity": "sim_verified",
-    "taxonomy": "host/cpu/steal-high",
-    "domain": "host",
-    "name": "CPU steal 过高排查（云主机）",
-    "summary": "steal 是虚拟化特有指标：宿主的 CPU 被分给了别的虚机，本机想用却拿不到。物理机上 steal 恒为 0",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.storage.capacity.disk-full",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "host/storage/capacity/disk-full",
-    "domain": "host",
-    "name": "磁盘空间耗尽排查与处置",
-    "summary": "先确认监控与 df 一致：告警可能来自采集延迟，先看现值再动手",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.network-stack.dns-resolve-fail",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "host/network-stack/dns-resolve-fail",
-    "domain": "host",
-    "name": "主机 DNS 解析失败排查",
-    "summary": "getent 走完整 nsswitch(含 /etc/hosts、mdns 等)，nslookup/dig 只问 DNS。两者结果不同能定位是 DNS 还是 h",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.process.fd-leak",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "host/process/fd-leak",
-    "domain": "host",
-    "name": "文件描述符泄漏排查",
-    "summary": "两种耗尽：系统级(/proc/sys/fs/file-max)和进程级(ulimit -n / LimitNOFILE)。报 Too many open fil",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.storage.iops-saturated",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "host/storage/iops-saturated",
-    "domain": "host",
-    "name": "磁盘 IO 打满排查",
-    "summary": "%util 对 SSD/NVMe 会误导：SSD 内部并行，util=100% 不代表打满，要结合 await 和实际 IOPS 判断",
+    "taxonomy": "aicomp/training/slow-node",
+    "domain": "aicomp",
+    "name": "慢节点定位（木桶效应）",
+    "summary": "同步训练里所有节点每 step 都要等最慢的那个(木桶效应)——一个慢节点拖垮整个集群吞吐。找到那个离群节点是关键",
     "attestations": 0,
     "signers": []
   },
@@ -194,6 +117,17 @@
     "domain": "host",
     "name": "CPU 负载过高排查",
     "summary": "负载必须除以核数看：load=16 在 4 核是灾难，在 64 核是正常。别被绝对值吓到",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "host.cpu.steal-high",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/cpu/steal-high",
+    "domain": "host",
+    "name": "CPU steal 过高排查（云主机）",
+    "summary": "steal 是虚拟化特有指标：宿主的 CPU 被分给了别的虚机，本机想用却拿不到。物理机上 steal 恒为 0",
     "attestations": 0,
     "signers": []
   },
@@ -231,6 +165,39 @@
     "signers": []
   },
   {
+    "id": "host.network-stack.conntrack-full",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/network-stack/conntrack-full",
+    "domain": "host",
+    "name": "conntrack 表满排查",
+    "summary": "表满的症状是新连接被丢弃、dmesg 报 'nf_conntrack: table full, dropping packet'，但业务表现是随机连接失败——容",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "host.network-stack.dns-resolve-fail",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/network-stack/dns-resolve-fail",
+    "domain": "host",
+    "name": "主机 DNS 解析失败排查",
+    "summary": "getent 走完整 nsswitch(含 /etc/hosts、mdns 等)，nslookup/dig 只问 DNS。两者结果不同能定位是 DNS 还是 h",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "host.process.fd-leak",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/process/fd-leak",
+    "domain": "host",
+    "name": "文件描述符泄漏排查",
+    "summary": "两种耗尽：系统级(/proc/sys/fs/file-max)和进程级(ulimit -n / LimitNOFILE)。报 Too many open fil",
+    "attestations": 0,
+    "signers": []
+  },
+  {
     "id": "host.process.zombie-flood",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -238,6 +205,61 @@
     "domain": "host",
     "name": "僵尸进程堆积排查",
     "summary": "僵尸进程本身不占 CPU/内存(只占一个 PID 表项)，真正的问题是父进程没回收——少量僵尸无害，暴涨才需处理",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "host.provision.agent-deploy",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/provision/agent-deploy",
+    "domain": "host",
+    "name": "监控探针批量部署（node_exporter 示例）",
+    "summary": "批量部署第一原则是幂等：已装的跳过、端口占用的报错、干净的才装。不做幂等检查的批量下发会在'部分已装'的环境里翻车",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "host.storage.capacity.disk-full",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/storage/capacity/disk-full",
+    "domain": "host",
+    "name": "磁盘空间耗尽排查与处置",
+    "summary": "先确认监控与 df 一致：告警可能来自采集延迟，先看现值再动手",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "host.storage.iops-saturated",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/storage/iops-saturated",
+    "domain": "host",
+    "name": "磁盘 IO 打满排查",
+    "summary": "%util 对 SSD/NVMe 会误导：SSD 内部并行，util=100% 不代表打满，要结合 await 和实际 IOPS 判断",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "k8s.networking.service-no-endpoints",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "k8s/networking/service-no-endpoints",
+    "domain": "k8s",
+    "name": "Service 访问不通 / 无 Endpoints 排查",
+    "summary": "Service 通不通第一步永远是看 Endpoints：有 EP=后端选到了(问题在网络/端口)，无 EP=选择器没选到任何就绪 Pod(问题在 select",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "k8s.scheduling.pending-unschedulable",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "k8s/scheduling/pending-unschedulable",
+    "domain": "k8s",
+    "name": "Pod 一直 Pending / 无法调度排查",
+    "summary": "调度器的 FailedScheduling 消息几乎直接告诉你原因，别绕：Insufficient=资源不够，taint=污点没容忍，affinity=选择器没",
     "attestations": 0,
     "signers": []
   },
@@ -271,28 +293,6 @@
     "domain": "k8s",
     "name": "容器 OOMKilled 排查",
     "summary": "容器 OOMKilled 是 cgroup 内存超限，与宿主内存是否充足无关——宿主可能一片空闲，容器照样因超自己的 limit 被杀",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "k8s.scheduling.pending-unschedulable",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "k8s/scheduling/pending-unschedulable",
-    "domain": "k8s",
-    "name": "Pod 一直 Pending / 无法调度排查",
-    "summary": "调度器的 FailedScheduling 消息几乎直接告诉你原因，别绕：Insufficient=资源不够，taint=污点没容忍，affinity=选择器没",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "k8s.networking.service-no-endpoints",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "k8s/networking/service-no-endpoints",
-    "domain": "k8s",
-    "name": "Service 访问不通 / 无 Endpoints 排查",
-    "summary": "Service 通不通第一步永远是看 Endpoints：有 EP=后端选到了(问题在网络/端口)，无 EP=选择器没选到任何就绪 Pod(问题在 select",
     "attestations": 0,
     "signers": []
   },
@@ -429,17 +429,6 @@
     "signers": []
   },
   {
-    "id": "obs.oncall.incident-timeline",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "obs/oncall/incident-timeline",
-    "domain": "obs",
-    "name": "事件时间线整理",
-    "summary": "时间线要客观：只把有时间戳的事实(告警触发/恢复、变更、扩缩容、重启)按时间排列，别在时间线里写因果推断——因果留给复盘",
-    "attestations": 0,
-    "signers": []
-  },
-  {
     "id": "obs.metrics.missing",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -462,6 +451,17 @@
     "signers": []
   },
   {
+    "id": "obs.oncall.incident-timeline",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "obs/oncall/incident-timeline",
+    "domain": "obs",
+    "name": "事件时间线整理",
+    "summary": "时间线要客观：只把有时间戳的事实(告警触发/恢复、变更、扩缩容、重启)按时间排列，别在时间线里写因果推断——因果留给复盘",
+    "attestations": 0,
+    "signers": []
+  },
+  {
     "id": "proc.change.ticket-gen",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -473,17 +473,6 @@
     "signers": []
   },
   {
-    "id": "proc.incident.report-gen",
-    "version": "0.1.0",
-    "maturity": "sim_verified",
-    "taxonomy": "proc/incident/report-gen",
-    "domain": "proc",
-    "name": "故障报告生成",
-    "summary": "报告面向复盘改进而非追责：时间线写事实、根因写系统性原因(为什么没早发现/为什么能发生)，别写成某个人背锅",
-    "attestations": 0,
-    "signers": []
-  },
-  {
     "id": "proc.handover.shift-summary",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -491,6 +480,17 @@
     "domain": "proc",
     "name": "值班交接摘要生成",
     "summary": "交接最容易丢的是'隐性上下文'：临时规避措施(还没回滚的应急改动)、正在观察但没告警的苗头、答应了别人要跟的事——这些不写下来就断在你这一班",
+    "attestations": 0,
+    "signers": []
+  },
+  {
+    "id": "proc.incident.report-gen",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "proc/incident/report-gen",
+    "domain": "proc",
+    "name": "故障报告生成",
+    "summary": "报告面向复盘改进而非追责：时间线写事实、根因写系统性原因(为什么没早发现/为什么能发生)，别写成某个人背锅",
     "attestations": 0,
     "signers": []
   },
