@@ -1,0 +1,36 @@
+name: 👎 投诉一个 Skill
+description: 某个 Skill 误导、翻车、过时或有安全隐患？在这里投诉，进入治理流程。
+title: "[report] <skill-id>"
+labels: [report]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: 被投诉的 Skill id
+      placeholder: host.storage.capacity.disk-full
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 问题类型
+      options:
+        - 误导（判断/分支错误）
+        - 翻车（照做后出了事故）
+        - 过时（命令/版本已不适用）
+        - 安全隐患（命令或回滚方案有风险）
+        - 其它
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: 具体问题与复现
+      description: 什么环境（OS/版本/规模，不要贴主机名与凭据）、走到哪个节点、期望 vs 实际。
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        **接下来会发生什么（治理流程）**：维护者核实（必要时仿真重跑该 Skill 的 tests）
+        → 处置（修正 / 降级徽章 / revert 下架，留痕不删档）→ 结论回帖公示。
