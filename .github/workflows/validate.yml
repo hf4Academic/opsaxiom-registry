@@ -1,25 +1,30 @@
 # PR 质检 + 合入后自动重建索引（"合入即上架"）。
-# 校验工具来自 OpsAxiom 主仓库——OPSAXIOM_REPO 指向它（主仓库开源后改成实际地址）。
+# 校验工具来自 OpsAxiom 主仓库（hf4Academic/opsaxiom，public）。
 name: registry
 on:
   pull_request:
   push:
     branches: [main]
 
-env:
-  OPSAXIOM_REPO: hf4Academic/opsaxiom        # TODO: 主仓库（含 tools/）发布后确认
-
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with: { path: registry }
-      - uses: actions/checkout@v4
-        with: { repository: ${{ env.OPSAXIOM_REPO }}, path: opsaxiom }
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - run: pip install -r opsaxiom/tools/requirements.txt
+      - name: checkout registry
+        uses: actions/checkout@v4
+        with:
+          path: registry
+      - name: checkout opsaxiom tools
+        uses: actions/checkout@v4
+        with:
+          repository: hf4Academic/opsaxiom
+          path: opsaxiom
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install deps
+        run: pip install -r opsaxiom/tools/requirements.txt
       # 每个收录的 skill 重跑完整校验（结构+语义 S1-S13+语法树），不绿不合
       - name: validate all skills
         run: |
@@ -30,29 +35,40 @@ jobs:
       # draft 拒收（policy.md 第 2 条）
       - name: reject drafts
         run: |
-          ! grep -rl "maturity: *draft" registry/skills/ || {
-            echo "::error::registry 拒收 draft（policy.md）"; exit 1; }
+          if grep -rl "maturity: *draft" registry/skills/; then
+            echo "::error::registry 拒收 draft（policy.md）"; exit 1
+          fi
+          echo "no drafts ✔"
 
   rebuild-index:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: validate
     runs-on: ubuntu-latest
-    permissions: { contents: write }
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
-        with: { path: registry }
-      - uses: actions/checkout@v4
-        with: { repository: ${{ env.OPSAXIOM_REPO }}, path: opsaxiom }
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - run: pip install -r opsaxiom/tools/requirements.txt
+      - name: checkout registry
+        uses: actions/checkout@v4
+        with:
+          path: registry
+      - name: checkout opsaxiom tools
+        uses: actions/checkout@v4
+        with:
+          repository: hf4Academic/opsaxiom
+          path: opsaxiom
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install deps
+        run: pip install -r opsaxiom/tools/requirements.txt
       - name: rebuild index.json
         run: |
           python - <<'PY'
           import sys
           sys.path.insert(0, 'opsaxiom/tools')
           import hubtool
-          n = hubtool.build_registry('registry/skills', '/tmp/rebuild')
+          n = hubtool.build_registry('registry/skills', '/tmp/rebuild', include_draft=False)
           print(f'rebuilt index: {n} skills')
           PY
           cp /tmp/rebuild/index.json registry/index.json
