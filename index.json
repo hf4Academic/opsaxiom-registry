@@ -121,28 +121,6 @@
     "signers": []
   },
   {
-    "id": "host.system.cert-expiry",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/system/cert-expiry",
-    "domain": "host",
-    "name": "TLS 证书到期巡检",
-    "summary": "检查的是证书链末端(叶子证书)到期——但中间 CA 证书到期同样致命，且更隐蔽。用 -showcerts 检查整条链",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.system.clock-drift",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/system/clock-drift",
-    "domain": "host",
-    "name": "系统时钟漂移/NTP 不同步排查",
-    "summary": "时钟漂移的危害是隐蔽的：日志时间错乱、TLS 证书校验失败、分布式锁/token 失效、Kerberos 认证失败——症状千奇百怪却都指向时间",
-    "attestations": 0,
-    "signers": []
-  },
-  {
     "id": "host.network-stack.conntrack-full",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -187,17 +165,6 @@
     "signers": []
   },
   {
-    "id": "host.process.dstate-hang",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/process/dstate-hang",
-    "domain": "host",
-    "name": "进程卡 D 状态（不可中断睡眠）排查",
-    "summary": "D 状态 = 进程在等内核 IO 且不可被信号打断，所以 kill -9 都杀不掉——这是新手最大的困惑点，别浪费时间尝试 kill",
-    "attestations": 0,
-    "signers": []
-  },
-  {
     "id": "host.process.fd-leak",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -205,17 +172,6 @@
     "domain": "host",
     "name": "文件描述符泄漏排查",
     "summary": "两种耗尽：系统级(/proc/sys/fs/file-max)和进程级(ulimit -n / LimitNOFILE)。报 Too many open fil",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.storage.fs-readonly",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/storage/fs-readonly",
-    "domain": "host",
-    "name": "文件系统变只读排查与恢复",
-    "summary": "文件系统变只读几乎总是内核的自我保护：检测到 IO 错误或元数据损坏后强制 RO，避免继续写坏数据",
     "attestations": 0,
     "signers": []
   },
@@ -264,28 +220,6 @@
     "signers": []
   },
   {
-    "id": "host.storage.raid-degraded",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/storage/raid-degraded",
-    "domain": "host",
-    "name": "RAID 阵列降级排查",
-    "summary": "先分清软/硬 RAID：软 RAID(mdadm)看 /proc/mdstat；硬 RAID 卡要用厂商工具(MegaCLI/storcli/ssacli)，两",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.cpu.softlockup",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/cpu/softlockup",
-    "domain": "host",
-    "name": "内核 soft/hard lockup 排查",
-    "summary": "soft lockup=某 CPU 在内核态跑了 >20s 没让出(watchdog 线程饿死)；hard lockup=CPU 连中断都不响应(更严重，常是硬",
-    "attestations": 0,
-    "signers": []
-  },
-  {
     "id": "host.memory.swap-thrash",
     "version": "0.1.0",
     "maturity": "sim_verified",
@@ -293,28 +227,6 @@
     "domain": "host",
     "name": "swap 抖动（换页风暴）排查",
     "summary": "关键是看 si/so(每秒换入换出 KB)的速率，不是 swap 用量。swap 用了不等于抖动——静止的 swap 无害，持续高速 si/so 才是灾难",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.system.systemd-unit-failed",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/system/systemd-unit-failed",
-    "domain": "host",
-    "name": "systemd 服务启动失败排查",
-    "summary": "先看 Result 再动手：exit-code 是程序自己退了，timeout 是启动超时，oom-kill 要转内存排查",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "host.network-stack.timewait-flood",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "host/network-stack/timewait-flood",
-    "domain": "host",
-    "name": "TIME_WAIT 堆积与端口耗尽排查",
-    "summary": "TIME_WAIT 是 TCP 正常机制(主动关闭方等 2MSL)，本身无害。只有当它耗尽本地端口(ip_local_port_range)导致新建外连失败时才",
     "attestations": 0,
     "signers": []
   },
@@ -337,28 +249,6 @@
     "domain": "k8s",
     "name": "Pod CrashLoopBackOff 排查",
     "summary": "退出码是第一线索：137=被 SIGKILL(常为 OOM)，143=SIGTERM，非0=应用自身错误，0=进程正常退出但 K8s 期望它常驻(命令写错)",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "k8s.networking.dns-fail",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "k8s/networking/dns-fail",
-    "domain": "k8s",
-    "name": "集群内 DNS 解析失败排查（CoreDNS）",
-    "summary": "先看 CoreDNS 本身健康不健康：它挂了→全集群解析瘫痪(大面积故障)；它好好的→是单 Pod/单域名问题(小范围)",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "k8s.release.hpa-not-scaling",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "k8s/release/hpa-not-scaling",
-    "domain": "k8s",
-    "name": "HPA 不扩容排查",
-    "summary": "HPA 不扩容第一步永远是看它有没有指标：显示 <unknown> 就是 metrics-server 或自定义指标源没数据，此时 HPA 完全瘫痪(不敢扩不敢",
     "attestations": 0,
     "signers": []
   },
@@ -392,39 +282,6 @@
     "domain": "k8s",
     "name": "Pod 一直 Pending / 无法调度排查",
     "summary": "调度器的 FailedScheduling 消息几乎直接告诉你原因，别绕：Insufficient=资源不够，taint=污点没容忍，affinity=选择器没",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "k8s.storage.pvc-pending",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "k8s/storage/pvc-pending",
-    "domain": "k8s",
-    "name": "PVC 一直 Pending / 绑不上 PV 排查",
-    "summary": "先分清动态供给还是静态供给：有 StorageClass=动态(provisioner 建 PV)，无 SC=静态(需管理员预建 PV 匹配)。两者卡住的原因完",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "k8s.release.rollback",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "k8s/release/rollback",
-    "domain": "k8s",
-    "name": "Deployment 回滚到上一版本",
-    "summary": "回滚前先确认新版本确实是问题根源——如果问题是外部依赖或数据，回滚代码无济于事反而白折腾",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "k8s.release.rollout-stuck",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "k8s/release/rollout-stuck",
-    "domain": "k8s",
-    "name": "发布卡住 / rollout 不推进排查",
-    "summary": "先看新 RS 的 Pod 有没有起来：updatedReplicas=0→新 Pod 根本没创建(配额/调度问题)；>0 但没 Ready→新 Pod 起来了但",
     "attestations": 0,
     "signers": []
   },
@@ -546,127 +403,6 @@
     "domain": "middleware",
     "name": "Redis 内存满 / 开始淘汰排查",
     "summary": "先看 maxmemory 是否设了(设 0=无限，靠系统内存兜底，风险更大)。逼近 maxmemory 时行为取决于 maxmemory-policy——noe",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.security-policy.acl-block",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/security-policy/acl-block",
-    "domain": "network",
-    "name": "ACL 拦截排查（诊断到边界，不改策略）",
-    "summary": "先确认接口方向(in/out)上确实挂了 ACL——被拦不一定是 ACL，也可能是路由/NAT。别一上来就怀疑 ACL",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.routing.bgp.neighbor-down",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/routing/bgp-neighbor-down",
-    "domain": "network",
-    "name": "BGP 邻居中断排查与恢复",
-    "summary": "Idle 和 Active 的含义与直觉相反：Active 表示正在主动尝试 TCP 连接，不是'正常'",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.routing.bgp-route-missing",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/routing/bgp-route-missing",
-    "domain": "network",
-    "name": "BGP 收不到路由排查",
-    "summary": "会话不 Established 谈何收路由——先排会话(转 bgp-neighbor-down)。这一步是防止在错误方向浪费时间",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.physical.interface-errors",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/physical/interface-errors",
-    "domain": "network",
-    "name": "接口错包排查（CRC/input errors）",
-    "summary": "关键是看错包是否'在增长'(delta)，不是累计值。历史累计错包可能来自很久以前的一次抖动，早已恢复",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.reachability.mtu-blackhole",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/reachability/mtu-blackhole",
-    "domain": "network",
-    "name": "MTU 黑洞排查（大包不通小包通）",
-    "summary": "MTU 黑洞的典型症状：能 ping 通、能建 TCP 连接、但一传大数据就卡死——因为小包过得去大包被丢且 ICMP 分片需求被拦",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.physical.optic-fault",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/physical/optic-fault",
-    "domain": "network",
-    "name": "光模块告警排查（光功率异常）",
-    "summary": "光功率单位是 dBm(对数)，-40 比 -10 弱得多。收光(Rx)低看对端发光+链路衰减，发光(Tx)低看本端模块",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.routing.ospf-adjacency-stuck",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/routing/ospf-adjacency-stuck",
-    "domain": "network",
-    "name": "OSPF 邻接建立卡住排查",
-    "summary": "OSPF 状态机卡点直接指向根因：Init=单向收到 hello(对端没回，查对端/单通)；ExStart/Exchange 卡住=经典 MTU 不匹配；Dow",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.reachability.packet-loss",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/reachability/packet-loss",
-    "domain": "network",
-    "name": "丢包逐跳定位",
-    "summary": "设备自身 ping 用软件转发、优先级低，丢几个包未必代表转发面丢包——大样本(100 包)才有统计意义",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.switching.stp-loop",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/switching/stp-loop",
-    "domain": "network",
-    "name": "二层环路/广播风暴排查（STP）",
-    "summary": "环路的杀伤是全局的：多口广播/组播流量暴涨、交换机 CPU 打满、MAC 表剧烈抖动、全网卡顿。别只盯一个口",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.traffic.anomaly-detect",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/traffic/anomaly-detect",
-    "domain": "network",
-    "name": "流量异常定位（带宽打满/突发）",
-    "summary": "先分清方向：入方向打满多为外部灌入(下载/攻击/回程)，出方向打满多为内部外发(上传/备份/被当跳板)。方向决定排查侧",
-    "attestations": 0,
-    "signers": []
-  },
-  {
-    "id": "network.switching.vlan-misconfig",
-    "version": "0.1.0",
-    "maturity": "draft",
-    "taxonomy": "network/switching/vlan-misconfig",
-    "domain": "network",
-    "name": "VLAN 不通排查（跨交换机同网段）",
-    "summary": "跨交换机同 VLAN 不通，八成是中间 trunk 没放行该 VLAN，或某台交换机上根本没创建该 VLAN",
     "attestations": 0,
     "signers": []
   },
