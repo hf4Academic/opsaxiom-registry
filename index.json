@@ -132,6 +132,19 @@
     "signers": []
   },
   {
+    "id": "host.cpu.throttled",
+    "version": "0.1.0",
+    "maturity": "sim_verified",
+    "taxonomy": "host/cpu/throttled",
+    "domain": "host",
+    "name": "容器/cgroup CPU 限流排查",
+    "summary": "cgroup v1/v2 文件路径不同：v2 是 /sys/fs/cgroup/cpu.stat，v1 是 /sys/fs/cgroup/cpu/cpu.sta",
+    "attestations": 1,
+    "signers": [
+      "mYYiRtZRse24"
+    ]
+  },
+  {
     "id": "host.memory.leak",
     "version": "0.1.0",
     "maturity": "sim_verified",
