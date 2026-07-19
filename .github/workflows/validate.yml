@@ -39,6 +39,14 @@ jobs:
             echo "::error::registry 拒收 draft（policy.md）"; exit 1
           fi
           echo "no drafts ✔"
+      # 个人层拒收（docs/13 §4：local. 前缀 / visibility:local 永不出门）
+      - name: reject local skills
+        run: |
+          if grep -rlE "visibility: *local" registry/skills/ \
+             || ls registry/skills/ 2>/dev/null | grep -q "^local\."; then
+            echo "::error::registry 拒收个人层 Skill（local./visibility:local，docs/13 §4）"; exit 1
+          fi
+          echo "no local skills ✔"
 
   rebuild-index:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
