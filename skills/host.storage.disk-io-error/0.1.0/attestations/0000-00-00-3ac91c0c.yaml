@@ -1,0 +1,13 @@
+skill: host.storage.disk-io-error
+skill_version: 0.1.0
+outcome: resolved
+mode: navigator
+env_fingerprint:
+  os:
+    family: darwin
+    version_bucket: 22.x
+  arch: x86_64
+deviations: []
+rollback_exercised: false
+attestor: RulessCD
+signature: ed25519:ZYlrxYyhfApOyikM8eVOJ1bwnfNzA4/AjsBN1iOlWA0=:EDoIJJOZhtHJMSdm79mygTeXq/JgSOlRWA2ZZBbCaRSz2W1e30hIJryQLaa3kyOMSisw4qoydLvGTFfURHhxAw==
