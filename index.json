@@ -614,7 +614,7 @@
     "domain": "host",
     "name": "磁盘空间耗尽排查与处置",
     "summary": "先确认监控与 df 一致：告警可能来自采集延迟，先看现值再动手",
-    "attestations": 1,
+    "attestations": 2,
     "signers": [
       "ZYlrxYyhfApO"
     ]
@@ -627,7 +627,7 @@
     "domain": "host",
     "name": "磁盘 I/O 错误排查(坏道/介质错误)",
     "summary": "内核 I/O error/Medium Error 是硬盘物理层报上来的,基本坐实介质/坏道问题——别只重试,继续读写坏道可能扩大损坏,且文件系统可能已受损",
-    "attestations": 1,
+    "attestations": 2,
     "signers": [
       "ZYlrxYyhfApO"
     ]
@@ -662,7 +662,7 @@
     "domain": "host",
     "name": "磁盘延迟高但利用率不高排查",
     "summary": "await 高 util 低=单次 IO 慢但队列不满，多为单次大 IO、fsync 频繁或后端存储（云盘/网络存储）本身延迟高，不是本地盘打满",
-    "attestations": 1,
+    "attestations": 2,
     "signers": [
       "ZYlrxYyhfApO"
     ]

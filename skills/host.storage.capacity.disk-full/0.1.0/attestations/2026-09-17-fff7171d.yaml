@@ -1,0 +1,13 @@
+skill: host.storage.capacity.disk-full
+skill_version: 0.1.0
+outcome: resolved
+mode: navigator
+env_fingerprint:
+  os:
+    family: darwin
+    version_bucket: 22.x
+  arch: x86_64
+deviations: []
+rollback_exercised: false
+attestor: RulessCD
+signature: ed25519:ZYlrxYyhfApOyikM8eVOJ1bwnfNzA4/AjsBN1iOlWA0=:NHEP4EmRyeOVjbpPO1Qak2aZJLZc5OWh6xTQKk4t8Edy+nYkQlMkeFpOl/WD9/lLtd15/Ok+Vp2jwtcKGRKkCA==
